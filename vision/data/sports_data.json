@@ -31,7 +31,7 @@
       "path": "images/sports/3.png",
       "media_type": "image/png"
     },
-    "query": "What is the defender's 3P% in the 2023-24 college season? Their team is a part of the Big Ten.",
+    "query": "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.",
     "answer": "27.1%",
     "meta": {
       "source_url": "https://cdn.vox-cdn.com/thumbor/-PYsGDxEj1oljkUmNaKVhax3YlU=/0x0:6048x4024/1200x800/filters:focal(2541x1529:3507x2495)/cdn.vox-cdn.com/uploads/chorus_image/image/73178462/usa_today_22646828.0.jpg ",
