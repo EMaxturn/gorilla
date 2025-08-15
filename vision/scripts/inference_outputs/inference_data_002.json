@@ -1,0 +1,20 @@
+[
+  {
+    "question": "What score did this individual receive for this event?",
+    "model_response": "I can see this is a surfing image from the Paris 2024 Olympics (visible on the athlete's jersey), and there's a USA flag on the surfboard. However, I cannot identify who this specific athlete is from the image alone. To find out what score they received, I would need to know which athlete this is and which specific heat or round this was from. Based on the search results, I can see that this appears to be from the Paris 2024 Olympics surfing competition. The athlete is wearing a USA jersey and competing at Teahupo'o in Tahiti. However, without being able to identify the specific athlete in the image, I cannot determine which exact heat or round this is from, and therefore cannot provide the specific score for this particular event. Based on the search results, I can see information about Caroline Marks' scores throughout the Paris 2024 Olympics surfing competition. However, without being able to identify which specific heat or round is shown in this particular image, I cannot provide the exact score for this specific event captured in the photo.\n\nWhat I can share from the search results are Caroline Marks' scores throughout the competition:\n\n- Round 1:  17.93  (highest score of the day with a 9.43 wave)\n- Round 3, Heat 1:  6.93  (4.33, 2.60)\n- Quarterfinal:  7.77  (4.00, 3.77)\n- Semifinal, Heat 1:  12.17  (7.00, 5.17)\n- Gold Medal Final:  10.50  (7.50, 3.00)\n\n Caroline Marks won Olympic gold with a final score of 10.50 , narrowly defeating Brazil's Tatiana Weston-Webb who scored 10.33.\n\nWithout additional context about which specific heat this image is from, I cannot provide the exact score for this particular moment.\n\n**10.50** (if this is from the gold medal final)",
+    "ground_truth": "10.50",
+    "image_path": "images/sports/1.png"
+  },
+  {
+    "question": "What rank did she place in this debut olympic event?",
+    "model_response": "I can see this is from the Paris 2024 Olympics based on the backdrop, and there appears to be someone performing what looks like a breaking/breakdancing move. However, I cannot identify who this specific athlete is from the image alone. \n\nTo find out what rank this athlete achieved in the breaking debut at the Paris 2024 Olympics, I would need additional context about which athlete you're asking about. Could you provide the name of the athlete you're interested in?",
+    "ground_truth": "16, 16th place, last place",
+    "image_path": "images/sports/2.png"
+  },
+  {
+    "question": "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.",
+    "model_response": "I can see a defender wearing a purple jersey with \"MARTIN\" on the back defending against a player in a white jersey. However, I cannot determine from the image alone which specific player this is or their statistics. To provide you with the accurate 3-point percentage for this Big Ten player from the 2023-24 season, I would need to search for this information. I need to search more specifically for Martin's statistics from the 2023-24 season: I can see the player is Nick Martinelli from Northwestern. Let me search for his specific 3-point shooting percentage for the 2023-24 season: I can see from the Sports Reference page that Nick Martinelli had a 33.3% 3-point percentage for 2024-25, but I need his 2023-24 season stats. Let me search for that specific information: Based on the search results, I found the information I needed. According to the Inside NU article from April 12, 2024, which reviewed Nick Martinelli's 2023-24 season:\n\n His 27.1% three-point percentage marks an area where he can still make strides. \n\n**27.1%**",
+    "ground_truth": "27.1%",
+    "image_path": "images/sports/3.png"
+  }
+]
