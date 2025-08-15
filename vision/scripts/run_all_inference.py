@@ -3,7 +3,7 @@ import sys, os,json
 # Add repo root to sys.path no matter where we run from
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from vision.handlers.claude_inference_single import run_inference
+from vision.handlers.claude_inference_single import run_claude_inference
 
 def main():
     if len(sys.argv) != 2:
@@ -24,7 +24,7 @@ def main():
         query = entry["query"]
         ground_truth = entry.get("answer")
 
-        pred = run_inference(full_img_path, query)
+        pred = run_claude_inference(full_img_path, query)
 
         print(f"[{i}] Query: {query}")
         print(f"  Model: {pred}")
