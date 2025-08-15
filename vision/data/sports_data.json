@@ -3,8 +3,7 @@
     "id": "sports_0001",
     "image": {
       "path": "images/sports/1.png",
-      "media_type": "image/png",
-      "base64": null
+      "media_type": "image/png"
     },
     "query": "What score did this individual receive for this event?",
     "answer": "10.50",
@@ -17,8 +16,7 @@
     "id": "sports_0002",
     "image": {
       "path": "images/sports/2.png",
-      "media_type": "image/png",
-      "base64": null
+      "media_type": "image/png"
     },
     "query": "What rank did she place in this debut olympic event?",
     "answer": "16, 16th place, last place",
@@ -31,8 +29,7 @@
     "id": "sports_0003",
     "image": {
       "path": "images/sports/3.png",
-      "media_type": "image/png",
-      "base64": null
+      "media_type": "image/png"
     },
     "query": "What is the defender's 3P% in the 2023-24 college season? Their team is a part of the Big Ten.",
     "answer": "27.1%",

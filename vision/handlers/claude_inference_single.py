@@ -27,6 +27,7 @@ def run_claude_inference(image_path: str, query: str) -> str:
     message = client.messages.create(
         model="claude-opus-4-20250514",
         max_tokens=1024,
+        system="Give a singular final answer to the best of your abilities (i.e a one word answer, a percentage statistic, an address, a name, etc.)",
         messages=[
             {
                 "role": "user",
@@ -53,10 +54,11 @@ def run_claude_inference(image_path: str, query: str) -> str:
     )
 
     # Extract & return final text
+    # return (message)
     message_dict = json.loads(message.model_dump_json())
     return get_final_answer_text_json(message_dict)
 
 # standalone test
 if __name__ == "__main__":
-    result = run_claude_inference("../images/sports/1.png", "What score did this individual receive for this event?")
+    result = run_claude_inference("../images/sports/3.png", "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.")
     print("Answer:", result)
