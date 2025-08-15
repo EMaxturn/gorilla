@@ -22,14 +22,14 @@ def main():
         full_img_path = os.path.join(dataset_dir, "..", img_path)
 
         query = entry["query"]
-        gold = entry.get("answer")
+        ground_truth = entry.get("answer")
 
         pred = run_inference(full_img_path, query)
 
         print(f"[{i}] Query: {query}")
         print(f"  Model: {pred}")
-        if gold is not None:
-            print(f"  Truth : {gold}")
+        if ground_truth is not None:
+            print(f"  Ground Truth : {ground_truth}")
         print()
 
 if __name__ == "__main__":
