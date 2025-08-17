@@ -1,6 +1,14 @@
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
-client = OpenAI(api_key="API KEY HERE")
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
+
+API_KEY = os.environ.get("OPENAI_API_KEY")
+if not API_KEY:
+    raise RuntimeError("Set OPENAI_API_KEY in your environment (or load it via a .env).")
+
+client = OpenAI()
 
 def llm_judge(question: str, model_response: str, ground_truth: str) -> str:
     """
