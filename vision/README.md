@@ -12,6 +12,8 @@
 Run the following command from the root of the repo:
 `python3 vision/scripts/run_all_inference.py vision/dataset/dataset_v1.json`
 
+You will find the result in the latest entry inside of `vision/scripts/inference_outputs`
+
 ## Running evaluation on an iteration of inference
 
 Run the following command from the root of the repo. Replace XXX with the iteration you want to evaluate:
