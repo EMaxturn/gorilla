@@ -1,0 +1,23 @@
+[
+  {
+    "question": "What score did this individual receive for this event?",
+    "ground_truth": "10.50",
+    "image_path": "images/sports/1.png",
+    "model": "gpt",
+    "model_response": "[ERROR] RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+  },
+  {
+    "question": "What rank did she place in this debut olympic event?",
+    "ground_truth": "16, 16th place, last place",
+    "image_path": "images/sports/2.png",
+    "model": "gpt",
+    "model_response": "[ERROR] RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+  },
+  {
+    "question": "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.",
+    "ground_truth": "27.1%",
+    "image_path": "images/sports/3.png",
+    "model": "gpt",
+    "model_response": "[ERROR] RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+  }
+]

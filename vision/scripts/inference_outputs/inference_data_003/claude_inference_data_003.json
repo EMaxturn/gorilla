@@ -1,0 +1,23 @@
+[
+  {
+    "question": "What score did this individual receive for this event?",
+    "ground_truth": "10.50",
+    "image_path": "images/sports/1.png",
+    "model": "claude",
+    "model_response": "10.50"
+  },
+  {
+    "question": "What rank did she place in this debut olympic event?",
+    "ground_truth": "16, 16th place, last place",
+    "image_path": "images/sports/2.png",
+    "model": "claude",
+    "model_response": "I don't know"
+  },
+  {
+    "question": "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.",
+    "ground_truth": "27.1%",
+    "image_path": "images/sports/3.png",
+    "model": "claude",
+    "model_response": "I don't know"
+  }
+]
