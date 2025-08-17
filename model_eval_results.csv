@@ -1,0 +1,7 @@
+idx,model,question,ground_truth,model_response,verdict
+1,claude,What score did this individual receive for this event?,10.50,10.50,success
+2,claude,What rank did she place in this debut olympic event?,"16, 16th place, last place",I don't know,fail
+3,claude,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,I don't know,fail
+1,gpt,What score did this individual receive for this event?,10.50,17.93 (olympics.com),fail
+2,gpt,What rank did she place in this debut olympic event?,"16, 16th place, last place",16th (en.wikipedia.org),success
+3,gpt,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,27.1% (espn.com),success
