@@ -14,8 +14,7 @@ if not API_KEY:
     )
 
 # Configure the generative AI library
-genai.configure(api_key=API_KEY)
-gemini_client = genai.Client()
+gemini_client = genai.Client(api_key=API_KEY)
 
 
 def extract_answer(text: str) -> str | None:
@@ -43,7 +42,7 @@ def _strip_markdown(s: str) -> str:
     s = re.sub(r"\n{2,}", "\n", s).strip()
     return s
 
-def run_gemini_inference(query, image_path):
+def run_gemini_inference(image_path, query):
     MODEL_ID = "gemini-2.5-pro"
 
     with open(image_path, 'rb') as f:

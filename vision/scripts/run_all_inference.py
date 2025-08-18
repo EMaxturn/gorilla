@@ -9,6 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from vision.handlers.claude_inference_single import run_claude_inference
 from vision.handlers.gpt_inference_single import run_gpt_inference
+from vision.handlers.gemini_inference_single import run_gemini_inference
 
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "inference_outputs")
@@ -38,9 +39,9 @@ def get_next_run_number():
     return f"{next_number:03d}"  # zero-padded to 3 digits
 
 
-def run_both_models_concurrently(full_img_path, query):
+def run_models_concurrently(full_img_path, query):
     """
-    Launch Claude and GPT inferences concurrently and return their results.
+    Launch model inferences concurrently and return their results.
     Any exception from either call is caught and returned as a string so the run continues.
     """
     def safe_call(fn, *args, **kwargs):
@@ -53,12 +54,13 @@ def run_both_models_concurrently(full_img_path, query):
         futures = {
             executor.submit(safe_call, run_claude_inference, full_img_path, query): "claude",
             executor.submit(safe_call, run_gpt_inference, full_img_path, query): "gpt",
+            executor.submit(safe_call, run_gemini_inference, full_img_path, query): "gemini",
         }
-        results = {"claude": None, "gpt": None}
+        results = {"claude": None, "gpt": None, "gemini": None}
         for fut in as_completed(futures):
             model = futures[fut]
             results[model] = fut.result()
-    return results["claude"], results["gpt"]
+    return results["claude"], results["gpt"], results["gemini"]
 
 
 def main():
@@ -75,6 +77,7 @@ def main():
 
     claude_results = []
     gpt_results = []
+    gemini_results = []
 
     for i, entry in enumerate(dataset, start=1):
         img_path = entry["image"]["path"]
@@ -84,11 +87,12 @@ def main():
         ground_truth = entry.get("answer")
 
         # ---- Run Claude & GPT concurrently ----
-        claude_pred, gpt_pred = run_both_models_concurrently(full_img_path, query)
+        claude_pred, gpt_pred, gemini_pred = run_models_concurrently(full_img_path, query)
 
         print(f"[{i}] Query: {query}")
         print(f"  Claude: {claude_pred}")
         print(f"  GPT   : {gpt_pred}")
+        print(f"  Gemini   : {gemini_pred}")
         if ground_truth is not None:
             print(f"  Ground Truth: {ground_truth}")
         print()
@@ -108,6 +112,11 @@ def main():
             "model": "gpt",
             "model_response": gpt_pred,
         })
+        gemini_results.append({
+            **base_record,
+            "model": "gpt",
+            "model_response": gemini_pred,
+        })
 
     # -------- Save results into a per-run folder --------
     run_number = get_next_run_number()
@@ -116,6 +125,8 @@ def main():
 
     claude_out = os.path.join(run_dir, f"claude_inference_data_{run_number}.json")
     gpt_out = os.path.join(run_dir, f"gpt_inference_data_{run_number}.json")
+    gemini_out = os.path.join(run_dir, f"gemini_inference_data_{run_number}.json")
+
 
     with open(claude_out, "w", encoding="utf-8") as f:
         json.dump(claude_results, f, indent=2, ensure_ascii=False)
@@ -123,8 +134,12 @@ def main():
     with open(gpt_out, "w", encoding="utf-8") as f:
         json.dump(gpt_results, f, indent=2, ensure_ascii=False)
 
+    with open(gemini_out, "w", encoding="utf-8") as f:
+        json.dump(gemini_results, f, indent=2, ensure_ascii=False)
+
     print(f"Saved {len(claude_results)} Claude results to {claude_out}")
     print(f"Saved {len(gpt_results)} GPT results to {gpt_out}")
+    print(f"Saved {len(gemini_results)} GPT results to {gemini_out}")
     print(f"Run directory: {run_dir}")
 
 
