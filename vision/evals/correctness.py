@@ -32,12 +32,16 @@ def main():
     parser = argparse.ArgumentParser(description="Evaluate model outputs against ground truth.")
     parser.add_argument("--claude", type=Path, required=True, help="Path to Claude JSON file")
     parser.add_argument("--gpt", type=Path, required=True, help="Path to GPT JSON file")
+    parser.add_argument("--gemini", type=Path, required=True, help="Path to Gemini JSON file")
+
     args = parser.parse_args()
 
     df_claude = evaluate_records(load_records(args.claude))
     df_gpt = evaluate_records(load_records(args.gpt))
+    df_gemini = evaluate_records(load_records(args.gemini))
 
-    df_all = pd.concat([df_claude, df_gpt], ignore_index=True)
+
+    df_all = pd.concat([df_claude, df_gpt, df_gemini], ignore_index=True)
 
     # Accuracy per model
     acc = (

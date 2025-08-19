@@ -114,7 +114,7 @@ def main():
         })
         gemini_results.append({
             **base_record,
-            "model": "gpt",
+            "model": "gemini",
             "model_response": gemini_pred,
         })
 
