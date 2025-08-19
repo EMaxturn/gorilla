@@ -9,7 +9,7 @@
 
 ## Running inference batches
 
-At the top of `run_all_inference.py` set `N_RUNS = NUMBER OF BATCHES TO RUN`
+At the top of `run_all_inference.py` set `N_RUNS` to the number of times you want to run the same query per model.
 
 Run the following command from the root of the repo:
 `python3 vision/scripts/run_all_inference.py vision/dataset/dataset_v1.json`
