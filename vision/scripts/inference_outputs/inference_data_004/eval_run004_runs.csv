@@ -1,0 +1,28 @@
+model,question,ground_truth,run_index,response,verdict,success,entry_accuracy
+claude,What score did this individual receive for this event?,10.50,0,10.50,success,True,0.3333333333333333
+claude,What score did this individual receive for this event?,10.50,1,I don't know,fail,False,0.3333333333333333
+claude,What score did this individual receive for this event?,10.50,2,I don't know,fail,False,0.3333333333333333
+claude,What rank did she place in this debut olympic event?,"16, 16th place, last place",0,I don't know,fail,False,0.0
+claude,What rank did she place in this debut olympic event?,"16, 16th place, last place",1,I don't know,fail,False,0.0
+claude,What rank did she place in this debut olympic event?,"16, 16th place, last place",2,I don't know,fail,False,0.0
+claude,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,0,27.1%,success,True,0.3333333333333333
+claude,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,1,I don't know,fail,False,0.3333333333333333
+claude,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,2,I don't know,fail,False,0.3333333333333333
+gpt,What score did this individual receive for this event?,10.50,0,"10.50 (olympics.com, nbcsportschicago.com)",success,True,0.6666666666666666
+gpt,What score did this individual receive for this event?,10.50,1,10.50 (olympics.com),success,True,0.6666666666666666
+gpt,What score did this individual receive for this event?,10.50,2,7.77 (en.wikipedia.org),fail,False,0.6666666666666666
+gpt,What rank did she place in this debut olympic event?,"16, 16th place, last place",0,16th (en.wikipedia.org),success,True,1.0
+gpt,What rank did she place in this debut olympic event?,"16, 16th place, last place",1,16th (en.wikipedia.org),success,True,1.0
+gpt,What rank did she place in this debut olympic event?,"16, 16th place, last place",2,16th,success,True,1.0
+gpt,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,0,"27.1% (sports-reference.com, espn.com)",success,True,1.0
+gpt,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,1,"27.1% (sports-reference.com, espn.com)",success,True,1.0
+gpt,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,2,"27.1% (en.wikipedia.org, sports-reference.com)",success,True,1.0
+gemini,What score did this individual receive for this event?,10.50,0,FINAL ANSWER,fail,False,0.0
+gemini,What score did this individual receive for this event?,10.50,1,FINAL ANSWER,fail,False,0.0
+gemini,What score did this individual receive for this event?,10.50,2,FINAL ANSWER,fail,False,0.0
+gemini,What rank did she place in this debut olympic event?,"16, 16th place, last place",0,FINAL ANSWER,fail,False,0.3333333333333333
+gemini,What rank did she place in this debut olympic event?,"16, 16th place, last place",1,FINAL ANSWER,fail,False,0.3333333333333333
+gemini,What rank did she place in this debut olympic event?,"16, 16th place, last place",2,0,success,True,0.3333333333333333
+gemini,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,0,FINAL ANSWER,fail,False,0.0
+gemini,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,1,FINAL ANSWER,fail,False,0.0
+gemini,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,2,FINAL ANSWER,fail,False,0.0
