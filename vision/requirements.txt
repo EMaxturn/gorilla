@@ -1,0 +1,4 @@
+python-dotenv
+anthropic
+google-genai
+openai==0.28.1

@@ -61,8 +61,12 @@ def run_gemini_inference(image_path, query):
     )
 
     # Add system prompt for consistent formatting
-    system_prompt = "Give a singular final answer to the best of your abilities (i.e a one word answer, a list of items, a date, a percentage statistic, an address, a name, etc.). No markdown or links in the final answer. Always format final answer as << FINAL ANSWER >>. If you are not sure of the final answer or require more information, respond with << I don't know >>."
-    
+    system_prompt = (
+        "Give a singular final answer to the best of your abilities (i.e a one word answer, a list of items, a date, a percentage statistic, an address, a name, etc.). "
+        "The final answer MUST be enclosed in double angle brackets like << answer >>. "
+        "The content inside the brackets must be plain text only, with no markdown or links. "
+        "If a definitive answer cannot be found, you MUST respond with << I don't know >> and nothing else."
+    )
     # Combine system prompt with user query
     formatted_query = f"{system_prompt}\n\nUser Query: {query}"
 
@@ -72,16 +76,21 @@ def run_gemini_inference(image_path, query):
         config={"tools": [{"google_search": {}}]},
     )
 
-    # Clean the response text by stripping markdown and extracting the answer
-    cleaned_text = _strip_markdown(response.text)
+    print(response)
+
+    # --- FIX IS HERE ---
+    # The response text is nested inside candidates -> content -> parts
+    text_content = ""  # Default to empty string
+    if response.text:
+        text_content = response.text
+    # --- END OF FIX ---
+    print(text_content)
+    # Now, clean the correctly extracted text
+    cleaned_text = _strip_markdown(text_content)
     final_answer = extract_answer(cleaned_text)
-    
+
     return final_answer
 
-if __name__ == '__main__':
-    print(
-        run_gemini_inference(
-            "What is the thing in the image and find latest news about it in Delhi, India",
-            "puppy.jpg"
-        )
-    )
+if __name__ == "__main__":
+    result = run_gemini_inference("../images/sports/3.png", "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.")
+    print("Answer:", result)
