@@ -16,7 +16,6 @@ if not API_KEY:
 # Configure the generative AI library
 gemini_client = genai.Client(api_key=API_KEY)
 
-
 def extract_answer(text: str) -> str | None:
     m = re.search(r"<<\s*(.+?)\s*>>", text, flags=re.DOTALL)
     return m.group(1).strip() if m else "I don't know"
@@ -76,7 +75,7 @@ def run_gemini_inference(image_path, query):
         config={"tools": [{"google_search": {}}]},
     )
 
-    print(response)
+    # print(response)
 
     # --- FIX IS HERE ---
     # The response text is nested inside candidates -> content -> parts
@@ -84,7 +83,7 @@ def run_gemini_inference(image_path, query):
     if response.text:
         text_content = response.text
     # --- END OF FIX ---
-    print(text_content)
+    # print(text_content)
     # Now, clean the correctly extracted text
     cleaned_text = _strip_markdown(text_content)
     final_answer = extract_answer(cleaned_text)

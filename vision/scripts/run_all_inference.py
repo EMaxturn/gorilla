@@ -3,125 +3,166 @@ import os
 import json
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+from typing import Dict, Any, List, Tuple
+
+# --- Configuration ---
+# Define models and their corresponding inference functions
+MODELS_TO_RUN = {
+    "claude": "vision.handlers.claude_inference_single.run_claude_inference",
+    "gpt": "vision.handlers.gpt_inference_single.run_gpt_inference",
+    "gemini": "vision.handlers.gemini_inference_single.run_gemini_inference",
+}
+N_RUNS = 3
+OUTPUT_DIR_NAME = "inference_outputs"
+RUN_DIR_PREFIX = "inference_data_"
 
 # --- make stdout line-buffered & flush by default ---
 try:
     sys.stdout.reconfigure(line_buffering=True)
-except Exception:
+except TypeError:  # For environments where reconfigure is not available
     pass
 PRINT = lambda *a, **k: print(*a, **{**k, "flush": True})
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from vision.handlers.claude_inference_single import run_claude_inference
-from vision.handlers.gpt_inference_single import run_gpt_inference
-from vision.handlers.gemini_inference_single import run_gemini_inference
-
-
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "inference_outputs")
-RUN_DIR_PREFIX = "inference_data_"
-N_RUNS = 3
+# --- Dynamically import inference functions ---
+def import_from_string(path: str):
+    """Imports a function from a string path like 'module.submodule.function'."""
+    module_path, function_name = path.rsplit('.', 1)
+    module = __import__(module_path, fromlist=[function_name])
+    return getattr(module, function_name)
 
 
-def get_next_run_number():
-    if not os.path.exists(OUTPUT_DIR):
-        os.makedirs(OUTPUT_DIR)
+try:
+    INFERENCE_FUNCTIONS = {
+        name: import_from_string(path) for name, path in MODELS_TO_RUN.items()
+    }
+except (ImportError, AttributeError) as e:
+    PRINT(f"[ERROR] Could not import an inference function: {e}")
+    sys.exit(1)
 
-    existing = [
-        d for d in os.listdir(OUTPUT_DIR)
-        if os.path.isdir(os.path.join(OUTPUT_DIR, d)) and d.startswith(RUN_DIR_PREFIX)
+
+# --- Core Logic ---
+def get_next_run_dir(base_output_dir: Path) -> Path:
+    """Calculates the next sequential run directory path."""
+    base_output_dir.mkdir(exist_ok=True)
+    existing_runs = [
+        int(d.name.replace(RUN_DIR_PREFIX, ""))
+        for d in base_output_dir.iterdir()
+        if d.is_dir() and d.name.startswith(RUN_DIR_PREFIX) and d.name.replace(RUN_DIR_PREFIX, "").isdigit()
     ]
-    run_numbers = []
-    for d in existing:
-        m = re.fullmatch(rf"{RUN_DIR_PREFIX}(\d+)", d)
-        if m:
-            run_numbers.append(int(m.group(1)))
-    next_number = max(run_numbers, default=0) + 1
-    return f"{next_number:03d}"
+    next_run_num = max(existing_runs, default=0) + 1
+    run_dir = base_output_dir / f"{RUN_DIR_PREFIX}{next_run_num:03d}"
+    run_dir.mkdir(exist_ok=True)
+    return run_dir
 
 
-def run_models_concurrently(full_img_path, query):
+def run_models_multiple(
+        full_img_path: Path, query: str, ground_truth: str, n_runs: int = N_RUNS
+) -> Tuple[List[str], List[str], List[str]]:
+    """
+    Runs inference for all models for N runs.
+    The runs are sequential, but the models within each run are called in parallel.
+    """
+    # Initialize results structure
+    results: Dict[str, List[Any]] = {name: [None] * n_runs for name in INFERENCE_FUNCTIONS}
+
     def safe_call(fn, *args, **kwargs):
+        """Wrapper to catch exceptions during threaded execution."""
         try:
             return fn(*args, **kwargs)
         except Exception as e:
-            return f"[ERROR] {type(e).__name__}: {e}"
+            return f"[ERROR] in {fn.__name__}: {type(e).__name__}: {e}"
 
-    # 3 workers since we launch 3 tasks
-    with ThreadPoolExecutor(max_workers=3) as executor:
-        futures = {
-            executor.submit(safe_call, run_claude_inference, full_img_path, query): "claude",
-            executor.submit(safe_call, run_gpt_inference, full_img_path, query): "gpt",
-            executor.submit(safe_call, run_gemini_inference, full_img_path, query): "gemini",
-        }
-        results = {"claude": None, "gpt": None, "gemini": None}
-        for fut in as_completed(futures):
-            model = futures[fut]
-            results[model] = fut.result()
-    return results["claude"], results["gpt"], results["gemini"]
-
-
-def run_models_multiple(full_img_path, query, ground_truth, n_runs=N_RUNS):
-    results = {"claude": [], "gpt": [], "gemini": []}
+    # This outer loop is SEQUENTIAL
     for n in range(n_runs):
-        claude_pred, gpt_pred, gemini_pred = run_models_concurrently(full_img_path, query)
-        results["claude"].append(claude_pred)
-        results["gpt"].append(gpt_pred)
-        results["gemini"].append(gemini_pred)
+        PRINT(f"[Run {n + 1}/{n_runs}] Starting parallel inference for all models...")
 
-        PRINT(f"[Run {n+1}] Query: {query}")
-        PRINT(f"Claude: {claude_pred}")
-        PRINT(f"GPT   : {gpt_pred}")
-        PRINT(f"Gemini: {gemini_pred}")
+        # A new thread pool is created for each sequential run.
+        # This ensures that Run (n) completes entirely before Run (n+1) begins.
+        with ThreadPoolExecutor(max_workers=len(INFERENCE_FUNCTIONS)) as executor:
+            # Submitting all model calls to the thread pool to run in PARALLEL
+            future_to_model = {
+                executor.submit(safe_call, func, str(full_img_path), query): name
+                for name, func in INFERENCE_FUNCTIONS.items()
+            }
+
+            # Gather results as they complete
+            for future in as_completed(future_to_model):
+                model_name = future_to_model[future]
+                result = future.result()
+                results[model_name][n] = result
+
+        # Print results for the completed run
+        PRINT(f"--- Results for Run {n + 1} ---")
+        PRINT(f"Query : {query}")
+        for name, res_list in results.items():
+            PRINT(f"{name.capitalize():<7}: {res_list[n]}")
         if ground_truth is not None:
             PRINT(f"Ground Truth: {ground_truth}")
+        PRINT("-" * (23 + len(str(n + 1))))
         PRINT()
-    return results["claude"], results["gpt"], results["gemini"]
+
+    return tuple(results[name] for name in MODELS_TO_RUN.keys())
 
 
 def main():
-    PRINT("[Boot] starting inference script…")
+    """Main script execution."""
+    PRINT("[Boot] Starting inference script…")
 
     if len(sys.argv) != 2:
-        PRINT(f"Usage: {sys.argv[0]} path/to/data.json")
+        PRINT(f"Usage: {Path(sys.argv[0]).name} path/to/data.json")
         sys.exit(1)
 
-    dataset_path = sys.argv[1]
-    with open(dataset_path, "r", encoding="utf-8") as f:
+    dataset_path = Path(sys.argv[1]).resolve()
+    if not dataset_path.is_file():
+        PRINT(f"[ERROR] Dataset file not found at: {dataset_path}")
+        sys.exit(1)
+
+    with dataset_path.open("r", encoding="utf-8") as f:
         dataset = json.load(f)
 
-    dataset_dir = os.path.dirname(dataset_path)
-    claude_results, gpt_results, gemini_results = [], [], []
+    dataset_dir = dataset_path.parent
+
+    # Store results for all entries
+    all_results: Dict[str, List[Dict]] = {name: [] for name in INFERENCE_FUNCTIONS}
 
     for idx, entry in enumerate(dataset, start=1):
-        PRINT(f"[Starting New Batch] Batch {idx}/{len(dataset)}")
+        PRINT(f"=========== Starting Batch {idx}/{len(dataset)} ===========")
 
-        img_path = entry["image"]["path"]
-        full_img_path = os.path.join(dataset_dir, "..", img_path)
+        img_path = Path(entry["image"]["path"])
+        # Assuming image path in JSON is relative to the project root
+        full_img_path = (dataset_dir.parent / img_path).resolve()
         query = entry["query"]
         ground_truth = entry.get("answer")
 
-        claude_preds, gpt_preds, gemini_preds = run_models_multiple(full_img_path, query, ground_truth)
-        base_record = {"question": query, "ground_truth": ground_truth, "image_path": img_path}
-        claude_results.append({**base_record, "model": "claude", "model_responses": claude_preds})
-        gpt_results.append({**base_record, "model": "gpt", "model_responses": gpt_preds})
-        gemini_results.append({**base_record, "model": "gemini", "model_responses": gemini_preds})
+        # Run the core logic for the current dataset entry
+        model_predictions = run_models_multiple(full_img_path, query, ground_truth)
 
-    run_number = get_next_run_number()
-    run_dir = os.path.join(OUTPUT_DIR, f"{RUN_DIR_PREFIX}{run_number}")
-    os.makedirs(run_dir, exist_ok=True)
+        # Unpack predictions and format results
+        claude_preds, gpt_preds, gemini_preds = model_predictions
 
-    with open(os.path.join(run_dir, f"claude_inference_data_{run_number}.json"), "w", encoding="utf-8") as f:
-        json.dump(claude_results, f, indent=2, ensure_ascii=False)
-    with open(os.path.join(run_dir, f"gpt_inference_data_{run_number}.json"), "w", encoding="utf-8") as f:
-        json.dump(gpt_results, f, indent=2, ensure_ascii=False)
-    with open(os.path.join(run_dir, f"gemini_inference_data_{run_number}.json"), "w", encoding="utf-8") as f:
-        json.dump(gemini_results, f, indent=2, ensure_ascii=False)
+        base_record = {"question": query, "ground_truth": ground_truth, "image_path": str(img_path)}
 
-    PRINT(f"Saved {len(claude_results)} Claude results")
-    PRINT(f"Saved {len(gpt_results)} GPT results")
-    PRINT(f"Saved {len(gemini_results)} Gemini results")
-    PRINT(f"Run directory: {run_dir}")
+        all_results["claude"].append({**base_record, "model": "claude", "model_responses": claude_preds})
+        all_results["gpt"].append({**base_record, "model": "gpt", "model_responses": gpt_preds})
+        all_results["gemini"].append({**base_record, "model": "gemini", "model_responses": gemini_preds})
+
+        PRINT(f"=========== Finished Batch {idx}/{len(dataset)} ===========\n")
+
+    # Determine output directory and save results
+    script_dir = Path(__file__).parent
+    output_dir = script_dir / OUTPUT_DIR_NAME
+    run_dir = get_next_run_dir(output_dir)
+    run_number = run_dir.name.replace(RUN_DIR_PREFIX, "")
+
+    for model_name, results_list in all_results.items():
+        output_file = run_dir / f"{model_name}_inference_data_{run_number}.json"
+        with output_file.open("w", encoding="utf-8") as f:
+            json.dump(results_list, f, indent=2, ensure_ascii=False)
+        PRINT(f"Saved {len(results_list)} results for {model_name.capitalize()} to {output_file}")
+
+    PRINT(f"\n[Done] All inferences complete. Results saved in: {run_dir}")
 
 
 if __name__ == "__main__":
