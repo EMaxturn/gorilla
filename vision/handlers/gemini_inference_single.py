@@ -21,6 +21,24 @@ def extract_answer(text: str) -> str | None:
     m = re.search(r"<<\s*(.+?)\s*>>", text, flags=re.DOTALL)
     return m.group(1).strip() if m else "I don't know"
 
+def extract_thoughts(response):
+    """Return only the reasoning/thought summaries as a list of strings."""
+    thoughts = []
+    for cand in getattr(response, "candidates", []) or []:
+        content = getattr(cand, "content", None)
+        if not content:
+            continue
+        for part in getattr(content, "parts", []) or []:
+            if getattr(part, "thought", False) and getattr(part, "text", None):
+                thoughts.append(part.text.strip())
+    return thoughts or None
+
+def clean_thoughts(thought_list):
+    """Flatten list of thought strings into one continuous cleaned string (no newlines)."""
+    if not thought_list:
+        return ""
+    combined = " ".join(t.strip() for t in thought_list if t and t.strip())
+    return _strip_markdown(combined)
 
 def _strip_markdown(s: str) -> str:
     if not isinstance(s, str):
@@ -37,9 +55,8 @@ def _strip_markdown(s: str) -> str:
     s = re.sub(r"^\s*\d+[\.)]\s+", "", s, flags=re.MULTILINE)
     # inline code / bold / italics markers
     s = s.replace("**", "").replace("*", "").replace("`", "")
-    # collapse extra whitespace/newlines
-    s = re.sub(r"\s+\n", "\n", s)
-    s = re.sub(r"\n{2,}", "\n", s).strip()
+    # collapse whitespace/newlines
+    s = re.sub(r"\s+", " ", s).strip()
     return s
 
 def run_gemini_inference(image_path, query):
@@ -73,10 +90,12 @@ def run_gemini_inference(image_path, query):
     response = gemini_client.models.generate_content(
         model=MODEL_ID,
         contents=[formatted_query, image],
-        config={"tools": [{"google_search": {}}]},
+        config=types.GenerateContentConfig(
+            tools=[types.Tool(google_search=types.GoogleSearch())],
+            thinking_config=types.ThinkingConfig(include_thoughts=True)
+            )
     )
-
-    print(response)
+    # print(response)
 
     # --- FIX IS HERE ---
     # The response text is nested inside candidates -> content -> parts
@@ -84,13 +103,14 @@ def run_gemini_inference(image_path, query):
     if response.text:
         text_content = response.text
     # --- END OF FIX ---
-    print(text_content)
+    # print(text_content)
     # Now, clean the correctly extracted text
     cleaned_text = _strip_markdown(text_content)
     final_answer = extract_answer(cleaned_text)
+    reasoning_trace = clean_thoughts(extract_thoughts(response))
 
-    return final_answer
+    return final_answer, reasoning_trace
 
 if __name__ == "__main__":
-    result = run_gemini_inference("../images/sports/3.png", "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.")
-    print("Answer:", result)
+    result, trace = run_gemini_inference("../images/sports/3.png", "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.")
+    print("Answer:", result, "Trace:", trace)

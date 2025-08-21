@@ -39,7 +39,7 @@ def run_gpt_inference(image_path, query):
 
     response = gpt_client.responses.create(
         model="o4-mini",
-        reasoning={"effort": "high"},
+        reasoning={"effort": "high","summary": "auto"},
         # If you don't need web links, you can REMOVE this tools line to further reduce list-y outputs.
         tools=[{"type": "web_search_preview"}],
         input=[
@@ -64,13 +64,10 @@ def run_gpt_inference(image_path, query):
             }
         ],
     )
+    final_answer = _strip_markdown(response.output_text)
+    reasoning_trace = response.reasoning.summary ## NEED TO CHECK FORMATTING ON THIS BUT HIT API LIMIT
+    return final_answer, reasoning_trace
 
-    return _strip_markdown(response.output_text)
-
-if __name__ == '__main__':
-    print(
-        run_gpt_inference(
-            "puppy.jpg",
-            "What is the thing in the image and find latest news about it in Delhi, India"
-        )
-    )
+if __name__ == "__main__":
+    result, trace = run_gpt_inference("../images/sports/3.png", "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.")
+    print("Answer:", result, "Trace:", trace)
