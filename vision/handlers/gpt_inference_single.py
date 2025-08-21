@@ -12,6 +12,17 @@ if not API_KEY:
 
 gpt_client = OpenAI(api_key=API_KEY)
 
+def get_all_summaries(resp) -> str:
+    parts = []
+    for item in getattr(resp, "output", []):
+        if getattr(item, "type", "") == "reasoning":
+            for s in getattr(item, "summary", []):
+                if hasattr(s, "text"):
+                    parts.append(s.text)
+                elif isinstance(s, dict) and "text" in s:
+                    parts.append(s["text"])
+    return _strip_markdown(" ".join(parts))
+
 def _strip_markdown(s: str) -> str:
     if not isinstance(s, str):
         return s
@@ -30,6 +41,7 @@ def _strip_markdown(s: str) -> str:
     # collapse extra whitespace/newlines
     s = re.sub(r"\s+\n", "\n", s)
     s = re.sub(r"\n{2,}", "\n", s).strip()
+    s = re.sub(r"\s+", " ", s)
     return s
 
 
@@ -39,7 +51,7 @@ def run_gpt_inference(image_path, query):
 
     response = gpt_client.responses.create(
         model="o4-mini",
-        reasoning={"effort": "high","summary": "auto"},
+        reasoning={"effort": "high","summary": "detailed" },
         # If you don't need web links, you can REMOVE this tools line to further reduce list-y outputs.
         tools=[{"type": "web_search_preview"}],
         input=[
@@ -64,8 +76,9 @@ def run_gpt_inference(image_path, query):
             }
         ],
     )
+    print(response)
     final_answer = _strip_markdown(response.output_text)
-    reasoning_trace = response.reasoning.summary ## NEED TO CHECK FORMATTING ON THIS BUT HIT API LIMIT
+    reasoning_trace = get_all_summaries(response)
     return final_answer, reasoning_trace
 
 if __name__ == "__main__":

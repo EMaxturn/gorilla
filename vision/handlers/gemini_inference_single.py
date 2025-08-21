@@ -102,8 +102,6 @@ def run_gemini_inference(image_path, query):
     if response.text:
         text_content = response.text
     # --- END OF FIX ---
-    # print(text_content)
-    # Now, clean the correctly extracted text
     cleaned_text = _strip_markdown(text_content)
     final_answer = extract_answer(cleaned_text)
     reasoning_trace = clean_thoughts(extract_thoughts(response))
