@@ -42,6 +42,19 @@ except (ImportError, AttributeError) as e:
     sys.exit(1)
 
 
+# --- formats each model result into the target schema ---
+def format_result(res: Any) -> Dict[str, str]:
+    if isinstance(res, dict):
+        return {
+            "final_answer": str(res.get("final_answer", "")),
+            "reasoning_trace": str(res.get("reasoning_trace", "")),
+        }
+    if isinstance(res, (list, tuple)) and len(res) >= 2:
+        return {"final_answer": str(res[0]), "reasoning_trace": str(res[1])}
+    # Fallback (e.g., error string)
+    return {"final_answer": str(res), "reasoning_trace": ""}
+
+
 # --- Core Logic ---
 def get_next_run_dir(base_output_dir: Path) -> Path:
     """Calculates the next sequential run directory path."""
@@ -91,7 +104,8 @@ def run_models_multiple(
             for future in as_completed(future_to_model):
                 model_name = future_to_model[future]
                 result = future.result()
-                results[model_name][n] = result
+                # --- format to {"final_answer": ..., "reasoning_trace": ...}
+                results[model_name][n] = format_result(result)
 
         # Print results for the completed run
         PRINT(f"--- Results for Run {n + 1} ---")
