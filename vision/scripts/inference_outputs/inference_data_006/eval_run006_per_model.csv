@@ -1,0 +1,4 @@
+model,avg_correctness
+claude,0.5555555555555555
+gemini,0.3333333333333333
+gpt,0.0

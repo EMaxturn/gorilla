@@ -1,3 +1,4 @@
+import vision
 import sys
 import os
 import json
@@ -6,6 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Dict, Any, List, Tuple
 
+
 # --- Configuration ---
 # Define models and their corresponding inference functions
 MODELS_TO_RUN = {
@@ -13,9 +15,12 @@ MODELS_TO_RUN = {
     "gpt": "vision.handlers.gpt_inference_single.run_gpt_inference",
     "gemini": "vision.handlers.gemini_inference_single.run_gemini_inference",
 }
+
+
 N_RUNS = 3
 OUTPUT_DIR_NAME = "inference_outputs"
 RUN_DIR_PREFIX = "inference_data_"
+
 
 # --- make stdout line-buffered & flush by default ---
 try:

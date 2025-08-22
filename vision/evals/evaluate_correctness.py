@@ -14,7 +14,7 @@ def eval_record(record):
     model = record.get("model", "")
     responses = record.get("model_responses", [])
 
-    verdicts = [llm_judge(q, resp, gt) for resp in responses]
+    verdicts = [llm_judge(q, resp.get('final_answer', ''), gt) for resp in responses]
     success_flags = [v == "success" for v in verdicts]
 
     entry_accuracy = (sum(success_flags) / len(success_flags)) if success_flags else 0.0
