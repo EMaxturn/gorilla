@@ -55,7 +55,7 @@ def evaluate_runs(records, model_hint=None):
     for rec in records:
         q  = _get(rec, "question", "query")
         gt = _get(rec, "ground_truth", "answer")
-        ht = _get(rec, "human_trace")  # may be empty on old data
+        ht = _get(rec, "human_trace")
         model = _get(rec, "model", default=model_hint or "")
         responses = rec.get("model_responses", []) or []
 

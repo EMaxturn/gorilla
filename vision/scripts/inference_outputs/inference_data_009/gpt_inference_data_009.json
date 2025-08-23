@@ -1,0 +1,65 @@
+[
+  {
+    "question": "What score did this individual receive for this event?",
+    "ground_truth": "10.50",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/1.png",
+    "model": "gpt",
+    "model_responses": [
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      }
+    ]
+  },
+  {
+    "question": "What rank did she place in this debut olympic event?",
+    "ground_truth": "16, 16th place, last place",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/2.png",
+    "model": "gpt",
+    "model_responses": [
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      }
+    ]
+  },
+  {
+    "question": "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.",
+    "ground_truth": "27.1%",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/3.png",
+    "model": "gpt",
+    "model_responses": [
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_gpt_inference: BadRequestError: Error code: 400 - {'error': {'message': 'Your organization must be verified to generate reasoning summaries. Please go to: https://platform.openai.com/settings/organization/general and click on Verify Organization. If you just verified, it can take up to 15 minutes for access to propagate.', 'type': 'invalid_request_error', 'param': 'reasoning.summary', 'code': 'unsupported_value'}}",
+        "reasoning_trace": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "question": "What score did this individual receive for this event?",
+    "ground_truth": "10.50",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/1.png",
+    "model": "claude",
+    "model_responses": [
+      {
+        "final_answer": "I don't know",
+        "reasoning_trace": "I can see this is a surfing image from what appears to be the Paris 2024 Olympics (visible on the jersey). The surfer is wearing a USA surfboard and appears to be competing. However, I cannot identify who this specific individual is from the image alone, and without knowing their identity, I cannot search for their specific score. The user is asking about a score for \"this individual\" but I need more information to provide the specific score they're asking about."
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPuGsH1DfQAykxqkiUn8'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPuLnMhU4QnxRemBBMA6'}",
+        "reasoning_trace": ""
+      }
+    ]
+  },
+  {
+    "question": "What rank did she place in this debut olympic event?",
+    "ground_truth": "16, 16th place, last place",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/2.png",
+    "model": "claude",
+    "model_responses": [
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPuQsmzYppf9YvkbJwYv'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPuSBdZQtse3RG5A9mtF'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPuTqCYcssPcCHdRc9R6'}",
+        "reasoning_trace": ""
+      }
+    ]
+  },
+  {
+    "question": "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.",
+    "ground_truth": "27.1%",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/3.png",
+    "model": "claude",
+    "model_responses": [
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPuVedrFFmTXnZh2SUpy'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "27.1%",
+        "reasoning_trace": "I need to identify the defender in the image who is wearing purple/blue jersey. The defender appears to be from Northwestern based on the partial text visible on the jersey. The user is asking about their 3-point percentage in the 2023-24 college season. Since this is a specific statistic from a specific season, I'll need to search for this information."
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPucMSC6NJZoWmUPZpUf'}",
+        "reasoning_trace": ""
+      }
+    ]
+  }
+]

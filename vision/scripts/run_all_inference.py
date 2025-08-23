@@ -161,7 +161,12 @@ def main():
         # Unpack predictions and format results
         claude_preds, gpt_preds, gemini_preds = model_predictions
 
-        base_record = {"question": query, "ground_truth": ground_truth, "image_path": str(img_path)}
+        base_record = {
+            "question": query, 
+            "ground_truth": ground_truth,
+            "human_trace": entry.get("human_trace", ""),  
+            "image_path": str(img_path)
+            }
 
         all_results["claude"].append({**base_record, "model": "claude", "model_responses": claude_preds})
         all_results["gpt"].append({**base_record, "model": "gpt", "model_responses": gpt_preds})
