@@ -1,0 +1,65 @@
+[
+  {
+    "question": "What score did this individual receive for this event?",
+    "ground_truth": "10.50",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/1.png",
+    "model": "claude",
+    "model_responses": [
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPvKQWt8yutcfmoUwGjx'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPvNHEfKvmMbyByEv4jP'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPvPtxX8qHaVFS7YoHBt'}",
+        "reasoning_trace": ""
+      }
+    ]
+  },
+  {
+    "question": "What rank did she place in this debut olympic event?",
+    "ground_truth": "16, 16th place, last place",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/2.png",
+    "model": "claude",
+    "model_responses": [
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPvRPgByxabLtuHABWbw'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPvT8SDUboin3jxkR7JY'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPvUUuoGWpJ7VFagEJbq'}",
+        "reasoning_trace": ""
+      }
+    ]
+  },
+  {
+    "question": "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.",
+    "ground_truth": "27.1%",
+    "human_trace": "HUMAN TRACE HERE",
+    "image_path": "images/sports/3.png",
+    "model": "claude",
+    "model_responses": [
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPvXLWrqR8FiWDFKmgsM'}",
+        "reasoning_trace": ""
+      },
+      {
+        "final_answer": "I don't know",
+        "reasoning_trace": "I can see a basketball player defending in a purple jersey with what appears to be \"MARTIN\" on the back. However, I cannot identify specific individuals from photos. To answer this question about the 3P percentage for the 2023-24 college season, I would need to search for this information since: 1. I cannot identify the specific player from the image 2. I need current/recent statistics from the 2023-24 college basketball season 3. The user is asking for specific performance statistics that would require up-to-date information I should search for information about this player's statistics from the 2023-24 season."
+      },
+      {
+        "final_answer": "[ERROR] in run_claude_inference: APIStatusError: {'type': 'error', 'error': {'details': None, 'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CSPvh2haAv8mXo6ySBRAp'}",
+        "reasoning_trace": ""
+      }
+    ]
+  }
+]

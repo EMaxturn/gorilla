@@ -20,7 +20,7 @@ def extract_answer(text: str) -> str | None:
     return m.group(1).strip() if m else "I don't know"
 
 
-client = anthropic.Anthropic(api_key=API_KEY)
+client = anthropic.Anthropic(api_key=API_KEY, max_retries=5)
 
 def get_final_answer_text_json(msg):
     text_blocks = [b["text"] for b in msg.get("content", []) if b.get("type") == "text"]
