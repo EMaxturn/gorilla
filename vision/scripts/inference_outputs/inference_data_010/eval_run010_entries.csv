@@ -1,0 +1,10 @@
+model,question,ground_truth,verdicts,entry_accuracy
+claude,What score did this individual receive for this event?,10.50,"['success', 'fail', 'fail']",0.3333333333333333
+claude,What rank did she place in this debut olympic event?,"16, 16th place, last place","['fail', 'fail', 'fail']",0.0
+claude,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,"['success', 'success', 'fail']",0.6666666666666666
+gpt,What score did this individual receive for this event?,10.50,"['success', 'fail', 'fail']",0.3333333333333333
+gpt,What rank did she place in this debut olympic event?,"16, 16th place, last place","['success', 'success', 'success']",1.0
+gpt,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,"['success', 'success', 'success']",1.0
+gemini,What score did this individual receive for this event?,10.50,"['fail', 'fail', 'fail']",0.0
+gemini,What rank did she place in this debut olympic event?,"16, 16th place, last place","['success', 'fail', 'fail']",0.3333333333333333
+gemini,What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.,27.1%,"['fail', 'success', 'fail']",0.3333333333333333

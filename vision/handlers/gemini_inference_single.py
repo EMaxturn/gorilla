@@ -78,10 +78,10 @@ def run_gemini_inference(image_path, query):
 
     # Add system prompt for consistent formatting
     system_prompt = (
-        "Give a singular final answer to the best of your abilities (i.e a one word answer, a list of items, a date, a percentage statistic, an address, a name, etc.). "
-        "The final answer MUST be enclosed in double angle brackets like << answer >>. "
-        "The content inside the brackets must be plain text only, with no markdown or links. "
-        "If a definitive answer cannot be found, you MUST respond with << I don't know >> and nothing else."
+        """“Give a singular final answer to the best of your abilities (i.e a one word answer, a list of items, a date, a percentage statistic, an address, a name, etc.). ”
+        “The final answer MUST be enclosed in double angle brackets like << answer >>. ”
+        “The content inside the brackets must be plain text only, with no markdown or links. ”
+        “Do your absolute best to give a final answer. If no viable answer can be found, you MUST respond with << I don’t know >> and nothing else.”"""
     )
     # Combine system prompt with user query
     formatted_query = f"{system_prompt}\n\nUser Query: {query}"
