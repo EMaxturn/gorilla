@@ -7,7 +7,7 @@
     },
     "query": "What score did this individual receive for this event?",
     "answer": "10.50",
-    "trace": "HUMAN TRACE HERE",
+    "human_trace": "HUMAN TRACE HERE",
     "meta": {
       "source_url": "https://s7d2.scene7.com/is/image/TWCNews/caroline_marks_melbourne_beach_olympic_gold_medal_AP24218797294616_n13_080524",
       "category": "sports"
@@ -21,7 +21,7 @@
     },
     "query": "What rank did she place in this debut olympic event?",
     "answer": "16, 16th place, last place",
-    "trace": "HUMAN TRACE HERE",
+    "human_trace": "HUMAN TRACE HERE",
     "meta": {
       "source_url": "https://i.abcnewsfe.com/a/1ee44e01-4a08-4e80-bfce-c64f69be6bee/Raygun-3-gty-gmh-240812_1723472077546_hpMain.jpg",
       "category": "sports"
@@ -35,7 +35,7 @@
     },
     "query": "What is the defender's 3P percentage in the 2023-24 college season? Their team is a part of the Big Ten.",
     "answer": "27.1%",
-    "trace": "HUMAN TRACE HERE",
+    "human_trace": "HUMAN TRACE HERE",
     "meta": {
       "source_url": "https://cdn.vox-cdn.com/thumbor/-PYsGDxEj1oljkUmNaKVhax3YlU=/0x0:6048x4024/1200x800/filters:focal(2541x1529:3507x2495)/cdn.vox-cdn.com/uploads/chorus_image/image/73178462/usa_today_22646828.0.jpg ",
       "category": "sports"
