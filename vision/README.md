@@ -2,6 +2,9 @@
 
 ### _\*\*All of this is subject to change_
 
+## Install all dependencies
+- Simply run 'python3 -m pip install -r vision/requirements.txt'
+
 ## Adding to the datset
 
 - Add your image to the correct category in `vision/images`, if there is no existing category matching your image create a new one.
