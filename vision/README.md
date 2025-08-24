@@ -3,7 +3,7 @@
 ### _\*\*All of this is subject to change_
 
 ## Install all dependencies
-- Simply run 'python3 -m pip install -r vision/requirements.txt'
+- Simply run `python3 -m pip install -r vision/requirements.txt`
 
 ## Adding to the datset
 
