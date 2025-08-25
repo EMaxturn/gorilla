@@ -40,5 +40,47 @@
       "source_url": "https://cdn.vox-cdn.com/thumbor/-PYsGDxEj1oljkUmNaKVhax3YlU=/0x0:6048x4024/1200x800/filters:focal(2541x1529:3507x2495)/cdn.vox-cdn.com/uploads/chorus_image/image/73178462/usa_today_22646828.0.jpg ",
       "category": "sports"
     }
+  },
+  {
+    "id": "locations_001",
+    "image": {
+      "path": "images/locations/1.png",
+      "media_type": "image/png"
+    },
+    "query": "What was the address of the cafe I went to? I went to the one with the orange signage.",
+    "answer": "2 Rue Lombards 75004 Paris France",
+    "human_trace": "HUMAN TRACE HERE",
+    "meta": {
+      "source_url": "https://i.redd.it/vyslqu08yaw81.jpg",
+      "category": "locations"
+    }
+  },
+  {
+    "id": "locations_002",
+    "image": {
+      "path": "images/locations/2.jpg",
+      "media_type": "image/jpg"
+    },
+    "query": "What is the address of this location?",
+    "answer": "101 7th Ave S New York, NY 10014",
+    "human_trace": "HUMAN TRACE HERE",
+    "meta": {
+      "source_url": "https://s3-media0.fl.yelpcdn.com/bphoto/WtxiqjEoABuR_Tw2LGxClQ/o.jpg",
+      "category": "locations"
+    }
+  },
+  {
+    "id": "locations_003",
+    "image": {
+      "path": "images/locations/2.jpg",
+      "media_type": "image/jpg"
+    },
+    "query": "What date did the company running this event IPO?",
+    "answer": "Thursday, July 31, 2025",
+    "human_trace": "HUMAN TRACE HERE",
+    "meta": {
+      "source_url": "https://miro.medium.com/v2/resize:fit:1400/1*yvYfawY92VWJDaMgmnrMLw.jpeg",
+      "category": "sports"
+    }
   }
 ]

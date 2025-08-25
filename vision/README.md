@@ -3,9 +3,10 @@
 ### _\*\*All of this is subject to change_
 
 ## Install all dependencies
+
 - Simply run `python3 -m pip install -r vision/requirements.txt`
 
-## Adding to the datset
+## Adding to the dataset
 
 - Add your image to the correct category in `vision/images`, if there is no existing category matching your image create a new one.
 - Create an entry for your image, query, ground truth, category, etc. in `vision/dataset/dataset_v1.json`
