@@ -91,7 +91,7 @@ def run_gemini_inference(image_path, query):
         contents=[formatted_query, image],
         config=types.GenerateContentConfig(
             tools=[types.Tool(google_search=types.GoogleSearch())],
-            thinking_config=types.ThinkingConfig(include_thoughts=True)
+            thinking_config=types.ThinkingConfig(include_thoughts=True, thinking_budget=1024)
             )
     )
     # print(response)

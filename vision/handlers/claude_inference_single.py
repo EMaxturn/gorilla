@@ -114,7 +114,7 @@ def run_claude_inference(image_path: str, query: str) -> str:
 
                 message = stream.get_final_message()
 
-                print(message)
+                # print(message)
             
             # Success!
             print(f"[Claude] Success on attempt {attempt}")
